@@ -131,11 +131,18 @@ class Game {
         player.update();
       }
       this.handlePlayerControls();
-      
+      const finishLine = height * 6 - 100;
       //CRIE A CONSTANTE DA LINHA DE CHEGADA
       
       //CRIE A CONDIÇÃO QUE SE O JOGADOR ULTRAPASSAR A LINHA DE CHEGADA, ELE É CLASSIFICADO
-
+      if (player.positionY > finishLine) {
+        gameState = 2;
+        player.rank += 1;
+        Player.updateCartsAtEnd(player.rank);
+        player.update();
+        this.showRank();
+      }
+      
       drawSprites();
     }
   }
@@ -230,7 +237,16 @@ handlePlayerControls() {
   }
 }
 // CRIE A FUNÇÃO showRank PARA EXIBIR O POPUP
-  
-  
+showRank() {
+  swal({
+    title: `Incrivel!${"/n"}Rank${"/n"}${player.rank}´,
+    text: "Voce alcançou a linha de chegada com sucesso",
+    imageUrl:
+      "https://raw.githubsercontent.com/vishalgaddam873/p5-multiplayer-car-race-game/master/assets/cup.png",
+    imageSize: "100x100",
+    confirmButtonText: "Ok"
+    });
+    }
+  }
   
 }
